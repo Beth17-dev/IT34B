@@ -1,13 +1,16 @@
+index.php
+
 <?php
-require_once'config/cinfig.php';
-require_once'includes/activity-logger.php';
+require_once 'config/config.php';
+require_once 'includes/activity-logger.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-      $action = TRIM($_POST['action'] ?? '');
-      $user_id = $_SESSION['user_id'] ?? null;
-      $user_email = $_SESSION['user_email'] ?? null;
+    $action = $_POST['action'] ?? '';
 
-  }
+    $user_id = $_SESSION['user_id' ] ?? null;
+    $user_email = $_SESSION['user_email'] ?? null;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -18,12 +21,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>Document</title>
 </head>
 <body>
-    <form method ="POST"
-    <button
-      type="submit"
-        name="action"
-    >Samples</button>
-
-     </form>
+    <form method="POST">
+        <button
+            type="submit"
+            name="action">
+            name="action"
+        >Sample</button>
+    
+</form>
 </body>
 </html>
