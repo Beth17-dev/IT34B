@@ -10,7 +10,7 @@ CREATE TABLE  user_sessions(
     session_end DATETIME NOT NULL,
     session_duration INT DEFAULT NULL,
 
-    -- Constraints and Foreign Key Implemetation
+    -- Constraints and Foreign Key Implementation
     CONSTRAINT fk_user_sessions_user_id
      FOREIGN KEY (user_id) 
      REFERENCES users(user_id)
