@@ -27,6 +27,11 @@ function loginUser($pdo, $login, $password)
         return false;
     }
 
+    // Check if user already has an active session
+    if(hasActiveUserSession($pdo,$user['user_id'])){
+        return 'active_session';
+    }
+
     $_SESSION['user_id'] = $user['user_id'];
     $_SESSION['user_email'] = $user['user_email'];
     $_SESSION['user_username'] = $user['user_username'];
@@ -41,6 +46,7 @@ function requireLogin()
 {
     if (!isset($_SESSION['user_id'])) {
         header('Location: ' . BASE_URL . '/index.php');
+        exit;
     }
 }
 function requireRole($role)
