@@ -1,6 +1,5 @@
 <?php
 require_once 'config/config.php';
-require_once 'config/functions.php';
 
 if(isset($_SESSION['user_id'])){
     header('Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php');
@@ -10,31 +9,47 @@ if(isset($_SESSION['user_id'])){
 $error='';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $login = trim($_POST['login'] ?? '');
+
+    $login = $_POST['login'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    
-if(isset($_SESSION['user_id'])){
-    echo 'Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php';
-    header('Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php');
-    exit;
-}
-    $error = 'Invalid login credentials';
+    $error = 'Invalid login credentials.';
 
-    if ($login==='' || $password ===''){
-
-        //log incomplete login attempt
+    if ($login=== '' || $password=== ''){
+        //Log incomplete login attempt
         logActivity($pdo,null,$login,'login','failed');
-        
-    } else {
-        if(loginUser($pdo,$login,$password)){
+
+    }else{
+
+        $result = loginUser($pdo,$login,$password);
+
+        if($result===true){
+
+        // Log incomplete login attempt
+            logActivity(
+                $pdo,
+                $_SESSION['user_id'],
+                $_SESSION['user_email'],
+                'login',
+                'success');
+
             echo 'Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php';
             header('Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php');
             exit;
+
+        }elseif($result=== 'active_session'){
+
+            echo 'This account is already logged in on another device';
+
+            $error = 'This account is already logged in on another device';
+
+    } else{
+
+            $error = 'Invalid login credentials';
         }
     }
-}
-
+ }
+    
 
 ?>
 
@@ -63,4 +78,8 @@ if(isset($_SESSION['user_id'])){
         
 
 </form>
+
+<?php if(isset($_GET['timeout'])): ?>
+    <p> Your session has expired due to inactivity. Please log in again.</p>
+<?php endif; ?>
 </body>
