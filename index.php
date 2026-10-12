@@ -27,7 +27,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Log incomplete login attempt
             logActivity(
-                $pdo,$_SESSION['user_id'],
+                $pdo,
+                $_SESSION['user_id'],
                 $_SESSION['user_email'],
                 'login',
                 'success');
@@ -77,4 +78,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
 
 </form>
+
+<?php if(isset($_GET['timeout'])): ?>
+    <p> Your session has expired due to inactivity. Please log in again.</p>
+<?php endif; ?>
 </body>
