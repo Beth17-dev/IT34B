@@ -1,6 +1,6 @@
 <?php
-function loginUser($pdo, $login, $password)
-{
+function loginUSER($pdo, $login, $password){
+    #Query 2
     $sql = "
         SELECT
             user_id,
@@ -10,8 +10,8 @@ function loginUser($pdo, $login, $password)
             user_role
         FROM users
         WHERE user_email = :login
-           OR user_username = :login
-        LIMIT 1
+            OR user_username = :login
+        LIMIT 1    
     ";
 
     $stmt = $pdo->prepare($sql);
@@ -19,11 +19,11 @@ function loginUser($pdo, $login, $password)
 
     $user = $stmt->fetch();
 
-    if (!$user) {
+    if(!$user){
         return false;
     }
 
-    if (!password_verify($password, $user['user_password'])) {
+    if(!password_verify($password, $user['user_password'])){
         return false;
     }
 
@@ -37,9 +37,10 @@ function loginUser($pdo, $login, $password)
     $_SESSION['user_username'] = $user['user_username'];
     $_SESSION['user_role'] = $user['user_role'];
 
-    $_SESSION['session_id'] = startUserSelection($pdo);
-
+    $_SESSION['session_id'] = startUserSession($pdo);
+    
     return true;
+
 }
 
 function requireLogin()
@@ -48,15 +49,16 @@ function requireLogin()
         header('Location: ' . BASE_URL . '/index.php');
         exit;
     }
-    checkSessionTimeout();
+
 }
+
 function requireRole($role)
 {
     requireLogin();
-   /*
+
     if ($_SESSION['user_role'] !== $role) {
         http_response_code(403);
         die('Access denied.');
     }
-    */
 }
+?>

@@ -107,7 +107,8 @@ function checkSessionTimeout(){
             '/index.php?timeout=1'
         );
     }
-    
+
+       
     // Update last activity
     $_SESSION['last_activity'] = time();
 
