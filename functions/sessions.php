@@ -1,6 +1,6 @@
 <?php
 // Start User Selection
-function startUserSelection($pdo){
+function startUserSession($pdo){
     if(!isset($_SESSION['user_id'])){
       return false;
 
