@@ -9,7 +9,7 @@ require_once(__DIR__ . '/../functions/csrf.php');
 require_once(__DIR__ . '/../functions/csv.php');
 
 
-require_once(__DIR__ . '/../vendor/autoload.php');
+require_once(__DIR__ . '/../vd/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
@@ -18,7 +18,7 @@ define('DB_NAME',$_ENV['DB_NAME'] ?? '');
 define('DB_USER',$_ENV['DB_USER'] ?? '');
 define('DB_PASS',$_ENV['DB_PASS'] ?? '');
 
-define('BASE_URL','http://localhost/IT34B');
+define('BASE_URL','http://localhost/IT34B-1');
 
 
 
