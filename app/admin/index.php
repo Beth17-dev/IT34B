@@ -197,7 +197,7 @@ if($section === 'user-sessions'){
                         </td>
 
                         <td>
-                            <?= htmlspecialchars($activity['activtiy_log_action']) ?>
+                            <?= htmlspecialchars($activity['activity_log_action']) ?>
                         </td>
 
                         <td>
