@@ -18,6 +18,7 @@ if ($section === 'activity-logs'){
     $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } elseif ($section === 'user-sessions') {
+    
 
     // User Sessions Query
     $stmt = $pdo->query("
